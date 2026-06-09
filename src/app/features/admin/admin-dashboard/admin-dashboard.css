@@ -1,0 +1,94 @@
+.admin-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  margin-bottom: 30px;
+}
+
+.admin-header h2 {
+  font-size: 28px;
+  color: #1a237e;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+}
+
+.admin-header p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #666;
+}
+
+.loading-state mat-spinner {
+  margin-bottom: 20px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.stat-icon {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.stat-icon mat-icon {
+  font-size: 30px;
+  height: 30px;
+  width: 30px;
+  color: white;
+}
+
+.stat-info h3 {
+  margin: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.stat-value {
+  margin: 5px 0 0 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.users-card { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.trains-card { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.bookings-card { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+.revenue-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }

@@ -1,0 +1,95 @@
+<div class="bookings-container">
+  <h2>My Bookings</h2>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading bookings...</p>
+  </div>
+
+  <div *ngIf="error" class="error-state">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !error && bookings.length === 0" class="empty-state">
+    <mat-icon>receipt_long</mat-icon>
+    <p>You have no bookings yet.</p>
+  </div>
+
+  <div class="bookings-list" *ngIf="!isLoading && !error && bookings.length > 0">
+      <mat-card class="ticket-card" *ngFor="let booking of bookings">
+        
+        <!-- Header -->
+        <div class="ticket-header">
+          <h3>{{ booking.trainName | uppercase }} ({{ booking.trainNumber }})</h3>
+        </div>
+
+        <!-- Route Info -->
+        <div class="route-info">
+          <div class="station-block left">
+            <span class="station-time">N.A. | {{ booking.boarding }}</span>
+            <span class="station-date">{{ booking.journeyDate | date:'mediumDate' }}</span>
+          </div>
+          <div class="route-line">
+             <span class="line-text">N.A.</span>
+          </div>
+          <div class="station-block right">
+            <span class="station-time">N.A. | {{ booking.destination }}</span>
+            <span class="station-date">{{ booking.journeyDate | date:'mediumDate' }}</span>
+          </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span class="booking-status">STATUS: <span [ngClass]="'status-text-' + booking.status">{{ getStatusName(booking.status) | uppercase }}</span></span>
+          <span class="middle-info">{{ booking.passengers.length }} Passenger(s) | {{ booking.coachType }} | {{ booking.quotaType }}</span>
+          <span class="boarding-info">Boarding Station: {{ booking.boarding }}</span>
+        </div>
+
+        <!-- Passenger Information -->
+        <div class="passenger-section">
+          <h4>Passenger Information</h4>
+          <table class="passenger-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Age | Gender</th>
+                <th>Booking Status</th>
+                <th>Current Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let passenger of booking.passengers; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td><strong>{{ passenger.name }}</strong></td>
+                <td>{{ passenger.age }} yrs | {{ passenger.gender }}</td>
+                <td>{{ passenger.status }} / {{ passenger.seatDetails }}</td>
+                <td><span class="status-confirmed">{{ passenger.status }} / {{ passenger.seatDetails }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Details -->
+        <div class="footer-details">
+          <!-- Left Column -->
+          <div class="details-column">
+            <div class="column-header">Booking Details</div>
+            <div class="detail-row"><span class="detail-label">PNR Number</span> <span class="detail-value">{{ booking.pnr }}</span></div>
+            <div class="detail-row"><span class="detail-label">Booked On</span> <span class="detail-value">{{ booking.bookedAt | date:'dd MMM yyyy | hh:mm a' }}</span></div>
+            <div class="detail-row"><span class="detail-label">Date of Boarding</span> <span class="detail-value">{{ booking.journeyDate | date:'dd MMM yyyy' }} | {{ booking.boardingTime }}</span></div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="details-column">
+            <div class="column-header">Payment Details</div>
+            <div class="detail-row"><span class="detail-label">Convenience Fee</span> <span class="detail-value">₹ {{ booking.convenienceFee | number:'1.2-2' }}</span></div>
+            <div class="detail-row"><span class="detail-label">Ticket Fare</span> <span class="detail-value">₹ {{ booking.ticketFare | number:'1.2-2' }}</span></div>
+            <div class="detail-row total-row"><span class="detail-label"><strong>Total Amount</strong></span> <span class="detail-value"><strong>₹ {{ booking.totalAmount | number:'1.2-2' }}</strong></span></div>
+          </div>
+        </div>
+
+      </mat-card>
+  </div>
+</div>

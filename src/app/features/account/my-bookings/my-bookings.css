@@ -1,0 +1,199 @@
+.bookings-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.loading-state, .error-state, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  color: #666;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.ticket-card {
+  margin-bottom: 20px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  border: 1px solid #e0e0e0;
+}
+
+.ticket-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ticket-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.route-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.station-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.station-block.left { text-align: left; }
+.station-block.right { text-align: right; }
+
+.station-time {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.station-date {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.route-line {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  margin: 0 40px;
+}
+
+.route-line::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+.line-text {
+  background: #fff;
+  padding: 0 10px;
+  color: #666;
+  font-size: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 13px;
+  color: #333;
+}
+
+.booking-status {
+  color: #999;
+}
+
+.status-text-2, .status-confirmed { color: #d32f2f; font-weight: bold; } /* Match user screenshot "NOT BOOKED" or "CANCELLED" color, or real confirmed */
+
+.passenger-section {
+  padding: 20px;
+}
+
+.passenger-section h4 {
+  margin: 0 0 15px 0;
+  color: #444;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.passenger-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.passenger-table th {
+  text-align: left;
+  color: #666;
+  font-weight: normal;
+  padding-bottom: 10px;
+}
+
+.passenger-table td {
+  padding: 8px 0;
+  color: #333;
+}
+
+.footer-details {
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+}
+
+.details-column {
+  flex: 1;
+  padding: 0;
+}
+
+.details-column:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.column-header {
+  background-color: #e0e0e0;
+  padding: 8px 15px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 15px;
+  font-size: 13px;
+  color: #444;
+}
+
+.detail-row.total-row {
+  margin-top: 10px;
+  padding-top: 15px;
+}
+
+.payment-mode-label {
+  width: 100%;
+  text-align: left;
+}
+
+.payment-mode-value {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}

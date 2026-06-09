@@ -1,0 +1,237 @@
+.irctc-header {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-strip {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.top-strip-content {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #000;
+}
+
+.datetime {
+  margin-left: auto;
+}
+
+/* PURE CSS DROPDOWN MENU - IRCTC STYLE */
+.nav-item.irctc-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.irctc-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.irctc-dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.dropdown-menu li:hover > a {
+  background-color: #ffe8d6; /* Light orange on hover */
+  color: #2b457e;
+}
+
+/* SUBMENU */
+.dropdown-submenu .sub-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+
+.dropdown-submenu:hover .sub-menu {
+  display: block;
+}
+
+.right-arrow {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  transform: rotate(-90deg); /* Make arrow point right */
+}
+
+.separator {
+  margin: 0 10px;
+  color: #333;
+}
+
+.text-size {
+  text-decoration: none;
+  color: #000;
+}
+
+.text-size sup {
+  font-size: 10px;
+}
+
+.language {
+  text-decoration: none;
+  color: #000;
+}
+
+.main-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.placeholder-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.ir-logo {
+  background-color: #213d77;
+  color: white;
+  font-size: 24px;
+}
+
+.irctc-logo {
+  background-color: #fff;
+  color: #213d77;
+  border: 2px solid #213d77;
+  flex-direction: column;
+}
+
+.irctc-real-logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+.irctc-logo .r-text {
+  font-size: 24px;
+  font-weight: 900;
+  margin-top: 5px;
+}
+
+.irctc-logo .irctc-text {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.nav-links-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.home-icon {
+  color: #666;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+}
+
+.nav-btn {
+  text-decoration: none;
+  padding: 8px 15px;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dark-blue-btn {
+  background-color: #213d77;
+  color: #ffffff;
+}
+
+.dark-blue-btn:hover {
+  background-color: #fb792b;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 8px 10px;
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  color: #fb792b;
+}
+
+.active-link {
+  border-bottom: 2px solid #fb792b;
+  color: #fb792b;
+}
+
+.dark-blue-block {
+  background-color: #213d77;
+  color: #ffffff;
+}
+
+.dark-blue-block:hover {
+  color: #ffffff;
+  background-color: #1a305e;
+}

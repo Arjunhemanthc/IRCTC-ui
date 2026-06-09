@@ -1,0 +1,79 @@
+<header class="irctc-header">
+  <div class="top-strip">
+    <div class="top-strip-content">
+      <span class="datetime">{{ currentDate | date:'dd-MMM-yyyy [HH:mm:ss]' }}</span>
+      <span class="separator">|</span>
+      <a href="javascript:void(0)" class="text-size">A<sup>-</sup></a>
+      <span class="separator">|</span>
+      <a href="javascript:void(0)" class="text-size">A</a>
+      <span class="separator">|</span>
+      <a href="javascript:void(0)" class="text-size">A<sup>+</sup></a>
+      <span class="separator">|</span>
+      <a href="javascript:void(0)" class="language">हिंदी</a>
+    </div>
+  </div>
+
+  <div class="main-nav-container">
+    <div class="logo-container left-logo">
+      <img src="/assets/images/irctc-agentship-provider.png" alt="IRCTC Agentship Provider" style="height: 60px; object-fit: contain;">
+    </div>
+
+    <div class="nav-links-wrapper">
+      <nav class="main-nav">
+        <a routerLink="/" class="home-icon"><mat-icon>home</mat-icon></a>
+        
+        @if (!authStore.isLoggedIn()) {
+          <a routerLink="/auth/login" class="nav-btn dark-blue-btn">LOGIN / REGISTER</a>
+        } @else {
+          <div class="nav-item irctc-dropdown">
+            <a href="javascript:void(0)" class="nav-link">MY ACCOUNT</a>
+            <ul class="dropdown-menu">
+              <!-- Admin Dropdown -->
+              <li class="dropdown-submenu">
+                <a href="javascript:void(0)">Admin <mat-icon class="right-arrow">arrow_drop_down</mat-icon></a>
+                <ul class="dropdown-menu sub-menu">
+                  <li><a routerLink="/admin/dashboard">Dashboard</a></li>
+                  <li><a routerLink="/admin/tariff">Tariff Generation</a></li>
+                  <li><a routerLink="/admin/stations">Manage Stations</a></li>
+                  <li><a routerLink="/admin/trains">Manage Trains</a></li>
+                </ul>
+              </li>
+              <li class="dropdown-submenu">
+                <a href="javascript:void(0)">My Profile <mat-icon class="right-arrow">arrow_drop_down</mat-icon></a>
+                <ul class="dropdown-menu sub-menu">
+                  <li><a routerLink="/account/update">Update Profile</a></li>
+                  <li><a href="javascript:void(0)" title="Coming Soon">Change Password</a></li>
+                </ul>
+              </li>
+              <li class="dropdown-submenu">
+                <a href="javascript:void(0)">My Transactions <mat-icon class="right-arrow">arrow_drop_down</mat-icon></a>
+                <ul class="dropdown-menu sub-menu">
+                  <li><a routerLink="/account/last-transaction">Last Transaction Detail</a></li>
+                  <li><a routerLink="/account/my-bookings">Booked Ticket History</a></li>
+                </ul>
+              </li>
+              <li><a href="javascript:void(0)" title="Coming Soon">Authenticate User</a></li>
+              <li><a href="javascript:void(0)" title="Coming Soon">Feedback</a></li>
+              @if (authStore.isAdmin()) {
+                <li><a routerLink="/admin/dashboard">Admin Dashboard</a></li>
+              }
+              <li><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
+            </ul>
+          </div>
+        }
+
+        <a routerLink="/" class="nav-link active-link">TRAINS</a>
+        <a href="javascript:void(0)" class="nav-link" title="Coming Soon">MEALS</a>
+        <a href="javascript:void(0)" class="nav-link dark-blue-block" title="Coming Soon">LOYALTY</a>
+        <a href="javascript:void(0)" class="nav-link" title="Coming Soon">E-WALLET</a>
+        <a href="javascript:void(0)" class="nav-link" title="Coming Soon">ALERTS</a>
+        <a href="javascript:void(0)" class="nav-link" title="Coming Soon">OTHER SERVICES</a>
+        <a href="javascript:void(0)" class="nav-link" title="Coming Soon">CONTACT US</a>
+      </nav>
+    </div>
+
+    <div class="logo-container right-logo">
+      <img src="/assets/images/irctc-india-logo-png_seeklogo-180379.png" class="irctc-real-logo" alt="IRCTC Logo">
+    </div>
+  </div>
+</header>

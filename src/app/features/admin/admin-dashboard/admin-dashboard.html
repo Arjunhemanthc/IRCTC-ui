@@ -1,0 +1,47 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>Admin Dashboard</h2>
+    <p>Overview of system metrics and performance.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading stats...</p>
+  </div>
+
+  <div class="dashboard-grid" *ngIf="!isLoading && stats">
+    
+    <mat-card class="stat-card users-card">
+      <div class="stat-icon"><mat-icon>group</mat-icon></div>
+      <div class="stat-info">
+        <h3>Total Users</h3>
+        <p class="stat-value">{{ stats.totalUsers }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card trains-card">
+      <div class="stat-icon"><mat-icon>train</mat-icon></div>
+      <div class="stat-info">
+        <h3>Active Trains</h3>
+        <p class="stat-value">{{ stats.totalTrains }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card bookings-card">
+      <div class="stat-icon"><mat-icon>book_online</mat-icon></div>
+      <div class="stat-info">
+        <h3>Bookings Today</h3>
+        <p class="stat-value">{{ stats.totalBookingsToday }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card revenue-card">
+      <div class="stat-icon"><mat-icon>payments</mat-icon></div>
+      <div class="stat-info">
+        <h3>Revenue Today</h3>
+        <p class="stat-value">₹{{ stats.totalRevenueToday | number:'1.2-2' }}</p>
+      </div>
+    </mat-card>
+
+  </div>
+</div>

@@ -1,0 +1,242 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>Manage Trains</h2>
+    <p>Add new trains to the network or schedule existing trains for upcoming dates.</p>
+  </div>
+
+  <mat-card class="train-card">
+    <mat-tab-group animationDuration="0ms">
+      
+      <!-- ADD TRAIN TAB -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">train</mat-icon> Add New Train
+        </ng-template>
+
+        <form [formGroup]="trainForm" (ngSubmit)="addTrain()" class="tab-content">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Train Number</mat-label>
+              <input matInput formControlName="trainNumber" placeholder="e.g. 12302">
+              <mat-error *ngIf="trainForm.get('trainNumber')?.hasError('required')">Train Number is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Train Name</mat-label>
+              <input matInput formControlName="trainName" placeholder="e.g. Howrah Rajdhani">
+              <mat-error *ngIf="trainForm.get('trainName')?.hasError('required')">Train Name is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Train Type</mat-label>
+              <mat-select formControlName="trainType">
+                <mat-option *ngFor="let type of trainTypes" [value]="type.value">{{ type.label }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Source Station</mat-label>
+              <mat-select formControlName="sourceStationId">
+                <mat-option *ngFor="let stn of stations" [value]="stn.id">{{ stn.name }} ({{ stn.code }})</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Destination Station</mat-label>
+              <mat-select formControlName="destinationStationId">
+                <mat-option *ngFor="let stn of stations" [value]="stn.id">{{ stn.name }} ({{ stn.code }})</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- RUN DAYS -->
+          <div class="form-row">
+            <div class="run-days-container" formArrayName="runDays" style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
+              <span style="font-weight: 500;">Runs On:</span>
+              <mat-checkbox *ngFor="let dayCtrl of runDays.controls; let i=index" [formControlName]="i" color="primary">
+                {{ weekDays[i].label }}
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <!-- COACH COMPOSITION -->
+          <div class="composition-header">
+            <h3>Coach Composition</h3>
+            <button mat-button type="button" color="primary" (click)="addCoach()">
+              <mat-icon>add</mat-icon> Add Coach Class
+            </button>
+          </div>
+
+          <div formArrayName="coachComposition">
+            <div *ngFor="let coach of coachComposition.controls; let i=index" [formGroupName]="i" class="coach-row">
+              <mat-form-field appearance="outline" class="coach-type-field">
+                <mat-label>Coach Type</mat-label>
+                <mat-select formControlName="coachType">
+                  <mat-option *ngFor="let ct of coachTypes" [value]="ct.value">{{ ct.label }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="coach-count-field">
+                <mat-label>Number of Coaches</mat-label>
+                <input matInput type="number" formControlName="count" min="1">
+              </mat-form-field>
+
+              <button mat-icon-button color="warn" type="button" (click)="removeCoach(i)" *ngIf="coachComposition.length > 1">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="trainForm.invalid || isSavingTrain">
+              <mat-icon *ngIf="!isSavingTrain">save</mat-icon>
+              <mat-icon *ngIf="isSavingTrain"><mat-spinner diameter="20"></mat-spinner></mat-icon>
+              Save Train
+            </button>
+          </div>
+        </form>
+      </mat-tab>
+
+      <!-- MANAGE ROUTE TAB -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">map</mat-icon> Manage Train Route
+        </ng-template>
+
+        <form [formGroup]="routeForm" (ngSubmit)="saveRoute()" class="tab-content">
+          <div class="alert-info">
+            <mat-icon>info</mat-icon>
+            <span>Define the timetable and halts for the train. Without a route, a scheduled train will not be searchable by users.</span>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Select Train</mat-label>
+              <mat-select formControlName="trainId">
+                <mat-option *ngFor="let train of allTrains" [value]="train.id">
+                  {{ train.trainNumber }} - {{ train.trainName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="routeForm.get('trainId')?.hasError('required')">Train is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="composition-header">
+            <h3>Route Stations</h3>
+            <button mat-button type="button" color="primary" (click)="addRouteStation()">
+              <mat-icon>add</mat-icon> Add Stop
+            </button>
+          </div>
+
+          <div formArrayName="routeStations">
+            <div *ngFor="let stop of routeStations.controls; let i=index" [formGroupName]="i" class="coach-row" style="flex-wrap: wrap; gap: 10px;">
+              
+              <mat-form-field appearance="outline" style="width: 60px;">
+                <mat-label>Seq</mat-label>
+                <input matInput type="number" formControlName="sequenceOrder" readonly>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="flex: 1; min-width: 150px;">
+                <mat-label>Station</mat-label>
+                <mat-select formControlName="stationId">
+                  <mat-option *ngFor="let stn of stations" [value]="stn.id">{{ stn.name }} ({{ stn.code }})</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 100px;">
+                <mat-label>Distance (km)</mat-label>
+                <input matInput type="number" formControlName="distanceFromOriginKm">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 120px;">
+                <mat-label>Arrival Time</mat-label>
+                <input matInput type="time" formControlName="scheduledArrival">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 120px;">
+                <mat-label>Departure Time</mat-label>
+                <input matInput type="time" formControlName="scheduledDeparture">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 100px;">
+                <mat-label>Halt (mins)</mat-label>
+                <input matInput type="number" formControlName="haltDurationMinutes">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 80px;">
+                <mat-label>Day</mat-label>
+                <input matInput type="number" formControlName="dayOffset">
+                <mat-hint>0 = Day 1</mat-hint>
+              </mat-form-field>
+
+              <button mat-icon-button color="warn" type="button" (click)="removeRouteStation(i)" *ngIf="routeStations.length > 2">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="routeForm.invalid || isSavingRoute">
+              <mat-icon *ngIf="!isSavingRoute">save</mat-icon>
+              <mat-icon *ngIf="isSavingRoute"><mat-spinner diameter="20"></mat-spinner></mat-icon>
+              Save Route
+            </button>
+          </div>
+        </form>
+      </mat-tab>
+
+      <!-- SCHEDULE TRAIN TAB -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">event</mat-icon> Schedule Train Run
+        </ng-template>
+
+        <form [formGroup]="scheduleForm" (ngSubmit)="scheduleTrain()" class="tab-content">
+          <div class="alert-info">
+            <mat-icon>info</mat-icon>
+            <span>Batch Scheduling: Select a date range. The system will automatically generate schedules for every valid run day within this range based on the Train's configured Run Days.</span>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Select Train</mat-label>
+              <mat-select formControlName="trainId">
+                <mat-option *ngFor="let train of allTrains" [value]="train.id">
+                  {{ train.trainNumber }} - {{ train.trainName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="scheduleForm.get('trainId')?.hasError('required')">Train is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Start Date</mat-label>
+              <input matInput type="date" formControlName="startDate">
+              <mat-error *ngIf="scheduleForm.get('startDate')?.hasError('required')">Start Date is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>End Date</mat-label>
+              <input matInput type="date" formControlName="endDate">
+              <mat-error *ngIf="scheduleForm.get('endDate')?.hasError('required')">End Date is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="scheduleForm.invalid || isSavingSchedule">
+              <mat-icon *ngIf="!isSavingSchedule">schedule</mat-icon>
+              <mat-icon *ngIf="isSavingSchedule"><mat-spinner diameter="20"></mat-spinner></mat-icon>
+              Generate Schedules
+            </button>
+          </div>
+        </form>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-card>
+</div>

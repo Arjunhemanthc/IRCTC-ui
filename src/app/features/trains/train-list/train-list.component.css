@@ -1,0 +1,306 @@
+.search-results-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.results-header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-details h2 {
+  font-size: 16px;
+  margin: 0;
+  color: #333;
+}
+
+.filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sort-btn {
+  background-color: #213d77;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.day-navigation {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.nav-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.content-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.sidebar-filters {
+  width: 250px;
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.filter-section .filter-header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.remove-filter {
+  color: #fb792b;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.filter-group {
+  border-bottom: 1px solid #ddd;
+}
+
+.group-title {
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.group-title a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.checkbox-list {
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.checkbox-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.train-list-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.train-card {
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.train-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.train-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #000;
+}
+
+.run-days {
+  font-size: 13px;
+  color: #333;
+}
+
+.schedule-link {
+  color: #0066cc;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.train-timings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 15px;
+}
+
+.time-block {
+  font-size: 14px;
+}
+
+.time-block .time {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.duration-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 0 40px;
+}
+
+.duration-block .line {
+  height: 1px;
+  background-color: #ccc;
+  flex-grow: 1;
+}
+
+.duration-block .duration {
+  font-size: 13px;
+  color: #666;
+}
+
+.class-tabs {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin: 0 15px;
+}
+
+.class-tab {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  color: #666;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.class-tab.active {
+  color: #000;
+  border-bottom: 2px solid #fb792b;
+}
+
+.availability-panel {
+  padding: 15px;
+  background-color: #fbfbfb;
+}
+
+.avail-boxes {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.avail-box {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  width: 140px;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.avail-box.selected-box {
+  border-color: #fb792b;
+  box-shadow: 0 0 5px rgba(251, 121, 43, 0.3);
+}
+
+.avail-box.disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.box-date {
+  padding: 8px;
+  font-size: 13px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.box-status {
+  padding: 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.box-status.available {
+  color: #388e3c;
+}
+
+.box-status.waitlist {
+  color: #d32f2f;
+}
+
+.booking-action {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.book-now-btn {
+  background-color: #fb792b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.book-now-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.fare {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.loading-state, .error-state, .empty-state {
+  padding: 40px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+.error-state {
+  color: #d32f2f;
+}
+
+.empty-state h3 {
+  margin: 10px 0;
+  color: #333;
+}

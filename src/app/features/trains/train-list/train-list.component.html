@@ -1,0 +1,157 @@
+<div class="search-results-container">
+  
+  <div class="results-header-panel">
+    <div class="header-details">
+      <h2>{{ trains.length }} Results for <strong>{{ searchParams.from | uppercase }} &rarr; {{ searchParams.to | uppercase }}</strong> | {{ searchParams.date | date:'EEE, dd MMM yyyy' }} For Quota | {{ searchParams.quota }}</h2>
+    </div>
+    
+    <div class="filter-actions">
+      <button class="sort-btn active">Sort By | Departure</button>
+      <div class="day-navigation">
+        <button class="nav-btn"><mat-icon>chevron_left</mat-icon> Previous Day</button>
+        <button class="nav-btn">Next Day <mat-icon>chevron_right</mat-icon></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-layout">
+    
+    <!-- Left Sidebar: Filters -->
+    <div class="sidebar-filters">
+      <div class="filter-section">
+        <div class="filter-header">
+          <span>Refine Results</span>
+          <a href="javascript:void(0)" class="remove-filter">Remove Filter</a>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="group-title">
+          <span>JOURNEY CLASS</span>
+          <a href="javascript:void(0)">Select All</a>
+        </div>
+        <div class="checkbox-list">
+          <label><input type="checkbox" checked> AC First Class (1A)</label>
+          <label><input type="checkbox" checked> AC 2 Tier (2A)</label>
+          <label><input type="checkbox" checked> AC 3 Tier (3A)</label>
+          <label><input type="checkbox" checked> Sleeper (SL)</label>
+          <label><input type="checkbox" checked> Second Sitting (2S)</label>
+        </div>
+      </div>
+      
+      <div class="filter-group">
+        <div class="group-title">
+          <span>TRAIN TYPE</span>
+          <a href="javascript:void(0)">Select All</a>
+        </div>
+        <div class="checkbox-list">
+          <label><input type="checkbox" checked> RAJDHANI</label>
+          <label><input type="checkbox" checked> SHATABDI</label>
+          <label><input type="checkbox" checked> EXPRESS</label>
+          <label><input type="checkbox" checked> VANDE BHARAT</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side: Train List -->
+    <div class="train-list-container">
+      
+      @if (isLoading) {
+        <div class="loading-state">
+          <span>Loading trains...</span>
+        </div>
+      }
+
+      @if (error) {
+        <div class="error-state">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ error }}</span>
+        </div>
+      }
+
+      @if (!isLoading && !error && trains.length === 0) {
+        <div class="empty-state">
+          <mat-icon>train</mat-icon>
+          <h3>No trains found between these stations</h3>
+          <p>Please try a different date or station.</p>
+        </div>
+      }
+
+      @for (train of trains; track train.trainId) {
+        <div class="train-card">
+          
+          <div class="train-header">
+            <h3>{{ train.trainName | uppercase }} ({{ train.trainNumber }})</h3>
+            <div class="run-days">
+              <span>Runs On:</span> M T W T F S S
+              <a href="javascript:void(0)" class="schedule-link">Train Schedule</a>
+            </div>
+          </div>
+
+          <div class="train-timings">
+            <div class="time-block">
+              <span class="time">{{ train.departureTime }}</span> | <span class="station">{{ train.fromStation }}</span> | <span class="date">{{ searchParams.date | date:'EEE, dd MMM' }}</span>
+            </div>
+            
+            <div class="duration-block">
+              <span class="line"></span>
+              <span class="duration">{{ train.duration }}</span>
+              <span class="line"></span>
+            </div>
+
+            <div class="time-block">
+              <span class="time">{{ train.arrivalTime }}</span> | <span class="station">{{ train.toStation }}</span> | <span class="date">{{ searchParams.date | date:'EEE, dd MMM' }}</span>
+            </div>
+          </div>
+
+          <div class="class-tabs">
+            @for (avail of train.availability; track avail.coachType) {
+              <div 
+                class="class-tab" 
+                [class.active]="selectedClassMap[train.trainId] === avail.coachType"
+                (click)="selectClass(train.trainId, avail.coachType)">
+                {{ getCoachName(avail.coachType) }}
+              </div>
+            }
+          </div>
+
+          @if (getAvailableAvailability(train); as selectedAvail) {
+            <div class="availability-panel">
+              
+              <div class="avail-boxes">
+                <div class="avail-box selected-box">
+                  <div class="box-date">{{ searchParams.date | date:'EEE, dd MMM' }}</div>
+                  <div class="box-status available" [class.waitlist]="selectedAvail.availableSeats <= 0">
+                    {{ selectedAvail.availableSeats > 0 ? 'AVAILABLE ' + selectedAvail.availableSeats : 'WL ' + (-selectedAvail.availableSeats + 10) }}
+                  </div>
+                </div>
+                <div class="avail-box disabled">
+                  <div class="box-date">Next Day</div>
+                  <div class="box-status">NOT AVAILABLE</div>
+                </div>
+                <div class="avail-box disabled">
+                  <div class="box-date">Day After</div>
+                  <div class="box-status">NOT AVAILABLE</div>
+                </div>
+              </div>
+
+              <div class="booking-action">
+                <button 
+                  class="book-now-btn" 
+                  [disabled]="selectedAvail.availableSeats <= 0 && searchParams.quota === 'TATKAL'"
+                  (click)="bookNow(train)">
+                  Book Now
+                </button>
+                <span class="fare">&#8377; {{ selectedAvail.baseFare }}</span>
+              </div>
+
+            </div>
+          }
+
+        </div>
+      }
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,177 @@
+.booking-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.train-summary-card {
+  margin-bottom: 20px;
+  background: #f8f9fa;
+}
+
+.journey-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.time-station {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-station .time {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin: 0 20px;
+}
+
+.duration .line {
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.duration .text {
+  padding: 0 10px;
+  color: #666;
+}
+
+.class-info {
+  background: #e3f2fd;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.passenger-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.p-num {
+  font-weight: bold;
+  font-size: 16px;
+  width: 20px;
+}
+
+.p-name { flex: 3; }
+.p-age { flex: 1; }
+.p-gender { flex: 2; }
+.p-berth { flex: 2; }
+
+.add-p-btn {
+  margin-top: 10px;
+}
+
+.contact-row {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-row mat-form-field {
+  flex: 1;
+}
+
+.ticket-info-text {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.review-passengers {
+  margin-bottom: 20px;
+}
+
+.r-passenger {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.r-name {
+  font-weight: bold;
+  min-width: 200px;
+}
+
+.captcha-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.captcha-image {
+  background: #213d77;
+  color: white;
+  padding: 10px 30px;
+  font-size: 24px;
+  letter-spacing: 5px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 4px;
+}
+
+.captcha-image button {
+  color: white;
+}
+
+.fare-summary {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.fare-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.fare-row.total {
+  font-weight: bold;
+  font-size: 18px;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  padding-top: 15px;
+}
+
+.payment-options {
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.payment-desc {
+  color: #666;
+  font-size: 13px;
+  margin-left: 30px;
+  margin-top: 5px;
+}

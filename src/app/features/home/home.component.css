@@ -1,0 +1,205 @@
+.home-container {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 80px); /* Subtract navbar height */
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/vande-bharat-sleeper.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+/* Semi-transparent overlay to make text readable */
+.hero-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 8%;
+  height: 100%;
+}
+
+/* RIGHT COLUMN (INDIAN RAILWAYS TEXT) */
+.hero-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.main-title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #213d77; /* IRCTC Dark Blue */
+  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
+}
+
+.sub-title {
+  font-size: 22px;
+  color: #213d77;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.pipe {
+  color: #213d77;
+}
+
+/* LEFT COLUMN (SEARCH WIDGET) */
+.search-widget-container {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-tabs {
+  display: flex;
+}
+
+.tab {
+  background-color: #213d77;
+  color: white;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.active-tab {
+  background-color: #213d77;
+}
+
+.tab-icon {
+  margin-right: 8px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.widget-body {
+  background-color: white;
+  padding: 20px 30px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.widget-header h2 {
+  color: #213d77;
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  font-weight: bold;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stations-row, .date-class-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.station-input, .date-input, .class-input {
+  flex: 1;
+}
+
+.quota-row {
+  display: flex;
+  width: 50%; /* Make quota dropdown half width matching screenshot */
+  margin-bottom: 10px;
+}
+
+.quota-input {
+  width: 100%;
+}
+
+.swap-btn {
+  background: none;
+  border: none;
+  color: #213d77;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  /* margin-top: -15px; Removed to fix overlap */
+}
+
+/* Hide the empty subscript wrapper in Angular Material form fields to fix overlap */
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+.swap-btn mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 5px;
+}
+
+.small-checkbox {
+  font-size: 13px;
+  color: #213d77;
+  font-weight: bold;
+}
+
+::ng-deep .mat-mdc-checkbox-label {
+  color: #213d77 !important;
+  font-weight: bold !important;
+  font-size: 12px !important;
+}
+
+.actions-row {
+  margin-top: 15px;
+}
+
+.search-btn {
+  background-color: #fb792b !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  padding: 8px 30px !important;
+  border-radius: 4px !important;
+}

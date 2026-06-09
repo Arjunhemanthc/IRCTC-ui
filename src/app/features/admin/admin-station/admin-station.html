@@ -1,0 +1,60 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>Manage Stations</h2>
+    <p>Add new railway stations to the network database.</p>
+  </div>
+
+  <div class="form-container">
+    <mat-card class="form-card">
+      <mat-card-header>
+        <div mat-card-avatar class="header-icon">
+          <mat-icon>domain_add</mat-icon>
+        </div>
+        <mat-card-title>Add New Station</mat-card-title>
+      </mat-card-header>
+
+      <form [formGroup]="stationForm" (ngSubmit)="addStation()">
+        <mat-card-content>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Station Code</mat-label>
+              <input matInput formControlName="stationCode" placeholder="e.g. NDLS" style="text-transform: uppercase">
+              <mat-error *ngIf="stationForm.get('stationCode')?.hasError('required')">Code is required</mat-error>
+              <mat-error *ngIf="stationForm.get('stationCode')?.hasError('maxlength')">Max 10 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Station Name</mat-label>
+              <input matInput formControlName="stationName" placeholder="e.g. New Delhi">
+              <mat-error *ngIf="stationForm.get('stationName')?.hasError('required')">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="e.g. New Delhi">
+              <mat-error *ngIf="stationForm.get('city')?.hasError('required')">City is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>State</mat-label>
+              <input matInput formControlName="state" placeholder="e.g. Delhi">
+              <mat-error *ngIf="stationForm.get('state')?.hasError('required')">State is required</mat-error>
+            </mat-form-field>
+          </div>
+
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" type="submit" [disabled]="stationForm.invalid || isSaving">
+            <mat-icon *ngIf="!isSaving">add_circle</mat-icon>
+            <mat-icon *ngIf="isSaving"><mat-spinner diameter="20"></mat-spinner></mat-icon>
+            Add Station
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

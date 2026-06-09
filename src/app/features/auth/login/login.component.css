@@ -1,0 +1,191 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 2000; /* Over navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Fallback background if modal overlay isn't fully opaque */
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-image: url('/assets/images/vande-bharat-sleeper.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.modal-container {
+  background-color: white;
+  width: 900px;
+  height: 500px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: relative;
+  display: flex;
+}
+
+.close-btn {
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  background-color: #213d77;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+}
+
+.close-btn mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.modal-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.login-section {
+  width: 350px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #ddd;
+}
+
+.login-title {
+  color: #213d77;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.title-underline {
+  width: 60px;
+  height: 2px;
+  background-color: #213d77;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.irctc-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  color: #213d77;
+  font-weight: bold;
+}
+
+.irctc-input::placeholder {
+  color: #213d77;
+  font-weight: bold;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #666;
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: #0066cc;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: left;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.checkbox-wrapper input {
+  margin-top: 3px;
+}
+
+.checkbox-wrapper label {
+  font-size: 11px;
+  color: #213d77;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.sign-in-btn {
+  background-color: #e56a31;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-btn {
+  flex: 1;
+  background-color: #2b457e;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.promo-section {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.promo-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}

@@ -1,0 +1,29 @@
+<div class="verify-layout">
+  <div class="verify-container">
+    <h2 class="verify-title">Please enter OTP received on provided Email ID</h2>
+    
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()" class="verify-form">
+      
+      <div class="form-row">
+        <label class="input-label">Email <span class="asterisk">*</span></label>
+        <div class="input-readonly">{{ email }}</div>
+        <input type="text" formControlName="otp" class="otp-input" placeholder="Enter OTP" maxlength="6">
+      </div>
+
+      <div class="actions-row">
+        <a routerLink="/auth/register" class="link-btn">Edit Email or Mobile</a>
+        <a (click)="resendOtp()" class="link-btn">Resend OTP</a>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="authStore.isLoading() || verifyForm.invalid">
+        Verify Email with OTP
+      </button>
+
+      @if (authStore.error()) {
+        <div class="error-msg">
+          {{ authStore.error() }}
+        </div>
+      }
+    </form>
+  </div>
+</div>

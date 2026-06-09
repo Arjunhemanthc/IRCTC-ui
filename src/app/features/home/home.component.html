@@ -1,0 +1,154 @@
+<div class="home-container">
+  <!-- Hero Background Image (Vande Bharat placeholder) -->
+  <div class="hero-background"></div>
+
+  <!-- Main Content Overlay -->
+  <div class="hero-content">
+    
+    <!-- Left Column: Search Box -->
+    <div class="search-widget-container">
+      
+      <div class="widget-tabs">
+        <div class="tab" [class.active-tab]="activeTab === 'book'" (click)="activeTab = 'book'">
+          <mat-icon class="tab-icon">train</mat-icon>
+          <span>BOOK TICKET</span>
+        </div>
+        <div class="tab" [class.active-tab]="activeTab === 'pnr'" (click)="activeTab = 'pnr'">
+          <mat-icon class="tab-icon">check_circle_outline</mat-icon>
+          <span>PNR STATUS</span>
+        </div>
+      </div>
+
+      <!-- Main Widget Body -->
+      <div class="widget-body">
+        
+        <div class="widget-header">
+          <div class="book-ticket-header">
+            <h2>BOOK TICKET</h2>
+          </div>
+          <div class="irctc-agent-logo">
+            <!-- Space for top right widget icon if needed -->
+          </div>
+        </div>
+
+        <form [formGroup]="searchForm" (ngSubmit)="searchTrains()" class="search-form" *ngIf="activeTab === 'book'">
+          
+          <div class="stations-row">
+            <mat-form-field appearance="outline" class="station-input">
+              <mat-icon matPrefix color="primary">near_me</mat-icon>
+              <mat-label>From</mat-label>
+              <input matInput formControlName="fromStation" [matAutocomplete]="autoFrom">
+              <mat-autocomplete #autoFrom="matAutocomplete" [displayWith]="displayStation">
+                @for (station of filteredFromStations$ | async; track station.id) {
+                  <mat-option [value]="station">
+                    {{ station.name }} ({{ station.code }})
+                  </mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <button type="button" class="swap-btn" (click)="swapStations()">
+              <mat-icon>compare_arrows</mat-icon>
+            </button>
+
+            <mat-form-field appearance="outline" class="station-input">
+              <mat-icon matPrefix color="primary">location_on</mat-icon>
+              <mat-label>To</mat-label>
+              <input matInput formControlName="toStation" [matAutocomplete]="autoTo">
+              <mat-autocomplete #autoTo="matAutocomplete" [displayWith]="displayStation">
+                @for (station of filteredToStations$ | async; track station.id) {
+                  <mat-option [value]="station">
+                    {{ station.name }} ({{ station.code }})
+                  </mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="date-class-row">
+            <mat-form-field appearance="outline" class="date-input">
+              <mat-icon matPrefix color="primary">date_range</mat-icon>
+              <mat-label>DD/MM/YYYY *</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="date">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="class-input">
+              <mat-icon matPrefix color="primary">work</mat-icon>
+              <mat-select formControlName="classType">
+                @for (cls of classes; track cls) {
+                  <mat-option [value]="cls">{{ cls }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="quota-row">
+            <mat-form-field appearance="outline" class="quota-input">
+              <mat-icon matPrefix color="primary">grid_view</mat-icon>
+              <mat-select formControlName="quota">
+                @for (q of quotas; track q) {
+                  <mat-option [value]="q">{{ q }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-row">
+            <mat-checkbox color="primary" formControlName="disabilityConcession" class="small-checkbox">Person With Disability Concession</mat-checkbox>
+            <mat-checkbox color="primary" formControlName="flexibleDate" class="small-checkbox">Flexible With Date</mat-checkbox>
+          </div>
+          <div class="checkbox-row">
+            <mat-checkbox color="primary" formControlName="passConcession" class="small-checkbox">Railway Pass Concession</mat-checkbox>
+          </div>
+
+          <div class="actions-row">
+            <button type="submit" mat-raised-button class="search-btn">Search Trains</button>
+          </div>
+
+        </form>
+
+        <div *ngIf="activeTab === 'pnr'" class="pnr-form-container" style="padding: 20px;">
+          <h3 style="color: #1a4282; margin-bottom: 20px;">Enter PNR to Check Status</h3>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Enter PNR Number</mat-label>
+            <input matInput [formControl]="pnrSearch">
+          </mat-form-field>
+          <button mat-raised-button color="primary" style="width: 100%; padding: 10px; font-size: 16px; background-color: #fb792b;" (click)="searchPnr()">Get Status</button>
+
+          <div *ngIf="pnrStatusResult" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9;">
+            <p><strong>PNR:</strong> {{ pnrStatusResult.pnr }}</p>
+            <p><strong>Status:</strong> {{ pnrStatusResult.bookingStatus }}</p>
+            <p><strong>Train:</strong> {{ pnrStatusResult.trainName }} ({{ pnrStatusResult.trainNumber }})</p>
+            <p><strong>Date:</strong> {{ pnrStatusResult.bookingDate | date:'mediumDate' }}</p>
+            <p><strong>Fare:</strong> ₹{{ pnrStatusResult.totalFare }}</p>
+            <hr>
+            <h4>Passengers</h4>
+            <ul>
+              <li *ngFor="let p of pnrStatusResult.passengers">
+                {{ p.name }} ({{ p.age }}, {{ p.gender }}) - Berth: {{ p.berthType || 'Pending' }}
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="pnrError" style="margin-top: 20px; color: red;">
+            {{ pnrError }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Big Title -->
+    <div class="hero-title-container">
+      <h1 class="main-title">INDIAN RAILWAYS</h1>
+      <div class="sub-title">
+        <span>Safety</span>
+        <span class="pipe">|</span>
+        <span>Security</span>
+        <span class="pipe">|</span>
+        <span>Punctuality</span>
+      </div>
+    </div>
+
+  </div>
+</div>

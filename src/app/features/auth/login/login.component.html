@@ -1,0 +1,50 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <button class="close-btn" (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+    
+    <div class="modal-content">
+      <!-- Left side: Login Form -->
+      <div class="login-section">
+        <h2 class="login-title">LOGIN</h2>
+        <div class="title-underline"></div>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <input type="text" class="irctc-input" formControlName="usernameOrEmail" placeholder="User Name">
+          
+          <div class="password-wrapper">
+            <input [type]="hidePassword ? 'password' : 'text'" class="irctc-input" formControlName="password" placeholder="Password">
+            <mat-icon class="eye-icon" (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </div>
+
+          <a href="javascript:void(0)" class="forgot-link">FORGOT ACCOUNT DETAILS?</a>
+
+          @if (authStore.error()) {
+            <div class="error-msg" style="color: red; margin-bottom: 10px; font-size: 14px; text-align: center;">
+              {{ authStore.error() }}
+            </div>
+          }
+
+          <button type="submit" class="sign-in-btn" [disabled]="authStore.isLoading()">
+            @if (authStore.isLoading()) {
+              <mat-spinner diameter="20" style="margin: 0 auto;"></mat-spinner>
+            } @else {
+              SIGN IN
+            }
+          </button>
+
+          <div class="action-buttons">
+            <button type="button" class="action-btn register-btn" routerLink="/auth/register">REGISTER</button>
+            <button type="button" class="action-btn agent-btn">AGENT LOGIN</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right side: Promotional Image -->
+      <div class="promo-section">
+        <img src="/assets/images/vande-bharat-sleeper.jpg" alt="Promo" class="promo-image">
+      </div>
+    </div>
+  </div>
+</div>
