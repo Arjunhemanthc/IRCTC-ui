@@ -1,45 +1,29 @@
 pipeline {
+    agent any
 
-agent any
+    environment {
+        IMAGE = "irctc-frontend:${BUILD_NUMBER}"
+        CONT = "irctc-frontend"
+    }
 
-environment {
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
 
-IMAGE = "product-frontend:${BUILD_NUMBER}"
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t ${IMAGE} .'
+            }
+        }
 
-CONT = "product-frontend"
-
-}
-
-stages {
-
-stage('Checkout') {
-
-steps { checkout scm }
-
-}
-
-stage('Build Docker Image') {
-
-steps {
-
-sh 'docker build -t ${IMAGE} .'
-
-}
-
-}
-
-stage('Run Container') {
-
-steps {
-
-sh 'docker rm -f ${CONT} || true'
-
-sh 'docker run -d --name ${CONT} -p 8081:80 ${IMAGE}'
-
-}
-
-}
-
-}
-
+        stage('Run Container') {
+            steps {
+                sh 'docker rm -f ${CONT} || true'
+                sh 'docker run -d --name ${CONT} -p 8081:80 ${IMAGE}'
+            }
+        }
+    }
 }
